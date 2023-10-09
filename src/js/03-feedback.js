@@ -6,7 +6,7 @@ const messageTextarea = document.querySelector('textarea[name="message"]');
 const LC_KEY = 'feedback-form-state';
 
 // Save data to local storage
-feedbackForm.addEventListener('input', throttle(handleSaveToLS, 500));
+feedbackForm.addEventListener('input', handleSaveToLS);
 
 function handleSaveToLS() {
   const formData = {
@@ -41,16 +41,17 @@ function handleSubmit(event) {
   if (emailInput.value === '' || messageTextarea.value === '') {
     const message = 'Please fill all fields!';
     alert(message);
+		return;
   }
-
-  localStorage.removeItem(LC_KEY);
-
-  emailInput.value = '';
-  messageTextarea.value = '';
 
   const formDataObject = {
     email: emailInput.value,
     message: messageTextarea.value,
   };
   console.log(formDataObject);
+
+	localStorage.removeItem(LC_KEY);
+
+  emailInput.value = '';
+  messageTextarea.value = '';
 }
